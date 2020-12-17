@@ -7,7 +7,8 @@ searchUser.addEventListener('keyup', (e) => {
       if (resp.profile.message === 'Not Found') {
         console.log('show alert')
       } else {
-        console.log(resp)
+        const ui = new UI()
+        ui.showProfile(resp.profile)
       }
     })
   }
