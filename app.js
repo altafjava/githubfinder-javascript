@@ -1,15 +1,17 @@
 const searchUser = document.getElementById('searchUser')
 searchUser.addEventListener('keyup', (e) => {
   const userText = e.target.value
+  const ui = new UI()
   if (userText !== '') {
     const github = new Github()
     github.getUser(userText).then((resp) => {
       if (resp.profile.message === 'Not Found') {
-        console.log('show alert')
+        ui.showAlert('User not found', 'alert alert-danger')
       } else {
-        const ui = new UI()
         ui.showProfile(resp.profile)
       }
     })
+  } else {
+    ui.clearProfile()
   }
 })
