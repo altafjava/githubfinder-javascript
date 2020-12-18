@@ -4,9 +4,14 @@ class Github {
     this.clientSecret = 'XXXXXXXXXX'
   }
   async getUser(username) {
-    const url = `https://api.github.com/users/${username}?client_id=${this.clientId}&client_secret=${this.clientSecret}`
-    const profileResponse = await fetch(url)
+    const profileUrl = `https://api.github.com/users/${username}?client_id=${this.clientId}&client_secret=${this.clientSecret}`
+
+    const reposUrl = `https://api.github.com/users/${username}/repos?per_page=5&sort=created-asc&client_id=${this.clientId}&client_secret=${this.clientSecret}`
+
+    const profileResponse = await fetch(profileUrl)
     const profile = await profileResponse.json()
-    return { profile }
+    const reposResponse = await fetch(reposUrl)
+    const repos = await reposResponse.json()
+    return { profile, repos }
   }
 }
